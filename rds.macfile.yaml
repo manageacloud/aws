@@ -5,13 +5,13 @@ version: 1.1
 actions:
 
    get_first_vpc:
-      bash: aws ec2 describe-subnets --output text | head -n1 | cut -f9
+      bash: aws ec2 describe-subnets --output text --region us-east-1 | head -n1 | cut -f9
 
    get_subnets:
-      bash: aws ec2 describe-subnets --output text | grep action.get_first_vpc.text.regex(.*) | cut -f8 | tr '\n' ' '
+      bash: aws ec2 describe-subnets --output text --region us-east-1 | grep action.get_first_vpc.text.regex(.*) | cut -f8 | tr '\n' ' '
 
    wait_for_rds:
-      bash: while ! aws rds describe-db-instances --output text | grep ENDPOINT; do sleep 10; done
+      bash: while ! aws rds describe-db-instances --output text --region us-east-1 | grep ENDPOINT; do sleep 10; done
 
 
 resources:
