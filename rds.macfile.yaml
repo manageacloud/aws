@@ -25,7 +25,7 @@ resources:
           --region us-east-1
 
     destroy bash:
-        while aws rds describe-db-instances --output text | grep resource.create_rds.json.DBInstance.DBInstanceIdentifier ; do sleep 10; done > /dev/null &&
+        while aws rds describe-db-instances --output text --region us-east-1 | grep resource.create_rds.json.DBInstance.DBInstanceIdentifier ; do sleep 10; done > /dev/null &&
         aws rds delete-db-subnet-group
           --db-subnet-group-name infrastructure.param.name
           --region us-east-1
@@ -49,6 +49,7 @@ resources:
       aws rds delete-db-instance
         --db-instance-identifier resource.create_rds.json.DBInstance.DBInstanceIdentifier
         --skip-final-snapshot
+        --region us-east-1
 
 infrastructures:
 
